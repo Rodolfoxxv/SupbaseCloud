@@ -29,6 +29,7 @@ jobs:
         flake8 . --count --select=E9,F63,F
     - name: Apply database migrations
       run: |
+        # Acessando as variáveis de ambiente do GitHub
         supabase --url ${{ secrets.SUPABASE_URL }} --key ${{ secrets.SUPABASE_KEY }} db push migrations
     - name: Run tests
       run: pytest
