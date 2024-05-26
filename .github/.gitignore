@@ -30,6 +30,7 @@ share/python-wheels/
 *.egg
 MANIFEST
 desktop.ini
+node_modules
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -176,5 +177,5 @@ poetry.toml
 
 # LSP config files
 pyrightconfig.json
-
+node_modules
 # End of https://www.toptal.com/developers/gitignore/api/python

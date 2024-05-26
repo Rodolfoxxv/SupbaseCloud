@@ -1,0 +1,11 @@
+{
+    "name": "SupbaseCloud", 
+    "version": "1.0.0",    
+    "description": "DB SupbaseCloud", 
+    
+    "author": "Rodolfo Fonseca",  
+    "license": "ISC",      
+    "devDependencies": {
+      "supabase": "^1.17.0" 
+    }
+  }

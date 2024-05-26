@@ -1,4 +1,4 @@
-name: Supabase Application
+name: SupbaseCloud 
 
 on:
   push:
@@ -19,8 +19,8 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: '18' 
-    - name: Install supabase-cli
-      run: npm install -g supabase
+    - name: Install project dependencies
+      run: npm install
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
       with:
@@ -36,6 +36,6 @@ jobs:
     - name: Apply database migrations
       run: |
         # Acessando as variáveis de ambiente do GitHub
-        supabase --url ${{ secrets.SUPABASE_URL }} --key ${{ secrets.SUPABASE_KEY }} db push migrations
+        npx supabase --url ${{ secrets.SUPABASE_URL }} --key ${{ secrets.SUPABASE_KEY }} db push migrations
     - name: Run tests
       run: pytest
