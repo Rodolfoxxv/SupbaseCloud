@@ -15,6 +15,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18' 
+    - name: Install supabase-cli
+      run: npm install -g supabase
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
       with:
@@ -22,7 +28,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install flake8 pytest supabase supabase-cli # Inclui a biblioteca supabase e o CLI
+        pip install flake8 pytest supabase 
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Lint with flake8
       run: |
