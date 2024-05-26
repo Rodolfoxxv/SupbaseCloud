@@ -1,40 +1,27 @@
-name: Deploy Terraform
+name: Supabase Migrations Workflow
 
 on:
   push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
-  deploy:
+  update-database:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
-      - name: Login to Supabase
-        uses: supabase/supabase-cli-action@v1
-        with:
-          supabaseUrl: ${{ secrets.SUPABASE_URL }}
-          supabaseKey: ${{ secrets.SUPABASE_KEY }}
+      - name: Install Supabase CLI
+        run: npm install -g supabase
 
-      - name: Run Terraform
-        run: |
-          terraform init
-          terraform plan
-          terraform apply -auto-approve
+      - name: Configure Supabase credentials
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
 
-      - name: Upload Terraform state to Supabase
-        uses: actions/upload-artifact@v3
-        with:
-          name: terraform-state
-          path: terraform.tfstate
+      - name: Apply database migrations
+        run: supabase db:push
 
-      - name: Invoke Supabase function
-        run: |
-          curl -X POST \
-            -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" \
-            -H "Content-Type: application/json" \
-            -d '{"bucket": "entrada_terraform", "key": "terraform/state/terraform.tfstate", "file": "terraform.tfstate"}' \
-            "https://${{ secrets.SUPABASE_URL }}/storage/v1/object/upload"
+      - name: Run tests (optional)
+        run: npm test 
