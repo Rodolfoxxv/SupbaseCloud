@@ -1,4 +1,4 @@
-name: SupbaseCloud 
+name: SupbaseCloud  
 
 on:
   push:
@@ -36,6 +36,6 @@ jobs:
     - name: Apply database migrations
       run: |
         # Acessando as variáveis de ambiente do GitHub
-        npx supabase --url ${{ secrets.SUPABASE_URL }} --key ${{ secrets.SUPABASE_KEY }} db push migrations
+        npx supabase --db-url ${{ secrets.SUPABASE_URL }} --key ${{ secrets.SUPABASE_SERVICE_KEY }} db push migrations
     - name: Run tests
-      run: pytest
+      run: pytest 
