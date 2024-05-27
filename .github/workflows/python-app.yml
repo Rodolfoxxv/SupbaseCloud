@@ -33,9 +33,18 @@ jobs:
     - name: Lint with flake8
       run: |
         flake8 . --count --select=E9,F63,F
-    - name: Apply database migrations
-      run: |
-        # Acessando as variáveis de ambiente do GitHub
-        npx supabase --db-url ${{ secrets.SUPABASE_URL }} db push migrations 
     - name: Run tests
       run: pytest 
+    - name: Deploy Supabase Function
+      run: |
+        # Supondo que você tenha instalado o supabase-cli globalmente 
+        supabase functions deploy --project-ref $PROJECT_ID
+      env:
+        SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
+    - name: Verify Function Deployment
+      run: |
+        supabase functions invoke --project-ref $PROJECT_ID  --function-name your-function-name 
+      env:
+        SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
