@@ -179,3 +179,4 @@ pyrightconfig.json
 **/node_modules
 node_modules
 **desktop.ini
+**.vscode

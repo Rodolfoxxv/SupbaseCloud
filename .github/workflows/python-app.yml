@@ -28,41 +28,29 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install flake8 pytest supabase
+          pip install flake8 pytest supabase 
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Lint with flake8
         run: |
-          set -e
           flake8 . --count --select=E9,F63,F
       - name: Run tests
-        run: |
-          set -e
-          pytest
-      - name: Install Supabase CLI
+        run: pytest 
+      - name: Install supabase-cli
         uses: supabase/setup-cli@v1
         with:
           version: latest
-      - name: Initialize Supabase Project
-        run: |
-          set -e
-          supabase init --name my-supabase-project
       - name: Deploy Supabase Function
         run: |
           set -e
-          supabase functions deploy --project-ref "$PROJECT_ID" 
+          supabase functions deploy --project-ref $PROJECT_ID
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
           PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
       - name: Verify Function Deployment
         run: |
-          set -e
-          supabase functions list --project-ref "$PROJECT_ID"
+          supabase functions list --project-ref $PROJECT_ID
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
           PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
       - name: Report Success
-        uses: actions/github-script@v5
-        with:
-          script: |
-            console.log('Sucesso! A função Supabase foi implantada com sucesso.');
-            
+        run: echo "Sucesso! Acesso à Supabase realizado com sucesso."
