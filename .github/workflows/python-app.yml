@@ -42,13 +42,13 @@ jobs:
       - name: Deploy Supabase Function
         run: |
           set -e
-          supabase functions deploy --project-ref $PROJECT_ID
+          supabase functions deploy --project-ref "$PROJECT_ID"
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
           PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
       - name: Verify Function Deployment
         run: |
-          supabase functions list --project-ref $PROJECT_ID
+          supabase functions deploy --project-ref "$PROJECT_ID"
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
           PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
