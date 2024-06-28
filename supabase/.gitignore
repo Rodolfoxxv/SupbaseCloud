@@ -2,3 +2,5 @@
 .branches
 .temp
 .env
+**desktop.ini
+.desktop.ini

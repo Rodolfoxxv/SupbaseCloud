@@ -1,3 +1,5 @@
+// Setup type definitions for built-in Supabase Runtime APIs
+/// <reference types="https://esm.sh/@supabase/functions-js/src/edge-runtime.d.ts" />
 import { createClient } from '@supabase/supabase-js'
 
 const supabase = createClient(process.env.PROJECT_ID, process.env.SUPABASE_ACCESS_TOKEN)
